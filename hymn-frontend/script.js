@@ -3,7 +3,7 @@ let hymns = [];
 // Fetch hymns from the backend
 async function fetchHymns() {
   try {
-    const response = await fetch('http://localhost:5000/hymns'); // Update the URL if needed
+    const response = await fetch('https://ohb.onrender.com/hymns'); // Update the URL if needed
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
