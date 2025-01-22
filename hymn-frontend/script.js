@@ -39,26 +39,39 @@ function showLyrics(hymn) {
 
 // Filter hymns by search query
 async function searchHymns() {
-  const query = document.getElementById('search').value;
+  const query = document.getElementById('search').value.trim();
+  console.log('Search query:', query);
+
   try {
     const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
+    console.log('Request URL:', 'https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
+
     if (!response.ok) {
-      throw new Error('Failed to fetch hymns');
+      throw new Error(`Failed to fetch hymns: ${response.statusText}`);
     }
-    const filteredHymns = await response.json();
-    renderHymns(filteredHymns);
+
+    const hymns = await response.json();
+    console.log('Response data:', hymns);
+    renderHymns(hymns); // Ensure this function updates the UI correctly
   } catch (error) {
     console.error('Error during search:', error);
     alert('Unable to fetch search results. Please try again later.');
   }
 }
 
+
 document.getElementById('search').addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
+    console.log('Enter key pressed!');
     searchHymns();
   }
 });
 
+
+document.getElementById('search-btn').addEventListener('click', () => {
+  console.log('Search button clicked!');
+  searchHymns();
+});
 
 // Fetch hymns on page load
 fetchHymns();
