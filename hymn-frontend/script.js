@@ -38,11 +38,27 @@ function showLyrics(hymn) {
 }
 
 // Filter hymns by search query
-function searchHymns() {
-  const query = document.getElementById('search').value.toLowerCase();
-  const filteredHymns = hymns.filter(hymn => hymn.title.toLowerCase().includes(query));
-  renderHymns(filteredHymns);
+async function searchHymns() {
+  const query = document.getElementById('search').value;
+  try {
+    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch hymns');
+    }
+    const filteredHymns = await response.json();
+    renderHymns(filteredHymns);
+  } catch (error) {
+    console.error('Error during search:', error);
+    alert('Unable to fetch search results. Please try again later.');
+  }
 }
+
+document.getElementById('search').addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    searchHymns();
+  }
+});
+
 
 // Fetch hymns on page load
 fetchHymns();

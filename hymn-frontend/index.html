@@ -43,12 +43,16 @@
 </head>
 <body>
   <h1>Hymn Collection</h1>
-  <input type="text" id="search" placeholder="Search hymns..." onkeyup="searchHymns()">
+  <input type="text" id="search" placeholder="Search for a hymn..." />
   <ul id="hymnList"></ul>
   <div id="lyricsDisplay">
     <h2 id="hymnTitle"></h2>
     <p id="hymnLyrics"></p>
   </div>
+ <div style="display: flex; align-items: center;">
+    <button id="search-btn">Search</button>
+  </div>
+
   <script>
     let hymns = [];
 

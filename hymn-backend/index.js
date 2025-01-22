@@ -31,8 +31,16 @@ const Hymn = mongoose.model('Hymn', hymnSchema);
 
 // API Endpoints
 app.get('/hymns', async (req, res) => {
-  const hymns = await Hymn.find();
-  res.json(hymns);
+  try {
+    const { title } = req.query;
+    const hymns = title
+      ? await Hymn.find({ title: new RegExp(title, 'i') }) // Case-insensitive search
+      : await Hymn.find();
+    res.json(hymns);
+  } catch (error) {
+    console.error('Error fetching hymns:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 app.post('/hymns', async (req, res) => {
