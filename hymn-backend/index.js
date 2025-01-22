@@ -3,15 +3,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+// Allow all origins or restrict to specific domains
+const corsOptions = {
+  origin: 'https://dynamic-mooncake-87aa69.netlify.app', // Replace with your frontend's URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
-// Allow all origins
-app.use(cors({
-  origin: '*', // Allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
-}));
+app.use(cors(corsOptions));
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
