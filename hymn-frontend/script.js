@@ -41,7 +41,7 @@ function showLyrics(hymn) {
 async function searchHymns() {
   const query = document.getElementById('search').value;
   try {
-    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
+    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
     if (!response.ok) {
       throw new Error('Failed to fetch hymns');
     }
