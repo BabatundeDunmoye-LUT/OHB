@@ -43,7 +43,7 @@ function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
 
   const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = ''; // Clear any existing lyrics
+  lyricsContainer.innerHTML = ''; // Clear previous content
 
   hymn.lyrics.split('\n').forEach(line => {
     if (line.startsWith('Verse')) {
@@ -59,14 +59,13 @@ function showLyrics(hymn) {
       lyricsContainer.appendChild(blankLine);
     } else {
       const lineElement = document.createElement('p');
-      lineElement.textContent = line; // Add plain text
+      lineElement.textContent = line;
       lyricsContainer.appendChild(lineElement);
     }
   });
 
-  document.getElementById('lyricsDisplay').style.display = 'block'; // Ensure display
+  document.getElementById('lyricsDisplay').style.display = 'block'; // Show lyrics
 }
-
 
 // Filter hymns by search query
 async function searchHymns() {
