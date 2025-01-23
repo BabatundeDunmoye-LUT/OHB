@@ -45,11 +45,20 @@ li {
 }
 
 p {
-  margin: 5px 0; /* Adjust spacing between lines */
-  line-height: 1.5; /* Improve readability */
+  margin: 0.5em 0; /* Add spacing between lines */
+  line-height: 1.6; /* Improve readability */
 }
 
 strong {
   font-weight: bold;
-  font-size: 1.1em; /* Slightly larger text for emphasis */
+  font-size: 1.1em; /* Make verse/chorus titles stand out */
 }
+
+#lyricsDisplay {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 5px;
+}
+

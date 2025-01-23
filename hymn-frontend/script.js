@@ -36,28 +36,28 @@ function renderHymns(hymns) {
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
 
-  // Split the lyrics by line breaks and process them
+  // Split the lyrics by newlines and wrap each line appropriately
   const formattedLyrics = hymn.lyrics
-    .split('\n') // Split into lines
+    .split('\n') // Split the lyrics into an array of lines
     .map(line => {
       if (line.startsWith('Verse')) {
-        return `<p><strong>${line}</strong></p>`; // Add bold formatting for verses
+        return `<p><strong>${line}</strong></p>`; // Bold and separate Verse titles
       } else if (line.startsWith('Chorus')) {
-        return `<p><strong>${line}</strong></p>`; // Add bold formatting for chorus
+        return `<p><strong>${line}</strong></p>`; // Bold and separate Chorus titles
       } else if (line.trim() === '') {
-        return '<br>'; // Add an empty line for spacing
+        return '<br>'; // Add a blank line for spacing
       } else {
-        return `<p>${line}</p>`; // Wrap normal lines in <p> tags
+        return `<p>${line}</p>`; // Regular lines wrapped in <p> tags
       }
     })
-    .join(''); // Join without adding additional <br> since <p> adds spacing
+    .join(''); // Combine everything without adding extra breaks
 
+  // Inject the formatted lyrics into the lyrics display container
   document.getElementById('hymnLyrics').innerHTML = formattedLyrics;
+
+  // Make the lyrics display visible
   document.getElementById('lyricsDisplay').style.display = 'block';
 }
-
-
-
 
 // Filter hymns by search query
 async function searchHymns() {
