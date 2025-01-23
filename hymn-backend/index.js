@@ -3,22 +3,26 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+// Initialize Express app
+const app = express();
+
 // Allow all origins or restrict to specific domains
 const corsOptions = {
   origin: 'https://dynamic-mooncake-87aa69.netlify.app', // Replace with your frontend's URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 app.use(cors(corsOptions));
-
+app.use(express.json()); // To parse JSON bodies
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB');
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Error connecting to MongoDB:', err.message);
   });
 
@@ -44,9 +48,14 @@ app.get('/hymns', async (req, res) => {
 });
 
 app.post('/hymns', async (req, res) => {
-  const hymn = new Hymn(req.body);
-  await hymn.save();
-  res.status(201).json(hymn);
+  try {
+    const hymn = new Hymn(req.body);
+    await hymn.save();
+    res.status(201).json(hymn);
+  } catch (error) {
+    console.error('Error saving hymn:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Start the Server
