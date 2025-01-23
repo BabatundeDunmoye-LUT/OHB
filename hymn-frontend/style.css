@@ -39,22 +39,23 @@ li {
 }
 
 #lyricsDisplay {
+  white-space: pre-wrap; /* Ensure line breaks are respected */
   margin-top: 20px;
   padding: 10px;
   border: 1px solid #ddd;
   background: #f9f9f9;
   border-radius: 5px;
-  white-space: pre-wrap; /* Preserve line breaks and whitespace */
 }
 
 p {
-  margin: 0.5em 0;
-  line-height: 1.6;
+  margin: 0.5em 0; /* Add spacing between paragraphs */
+  line-height: 1.6; /* Increase line height for readability */
 }
 
 strong {
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.1em; /* Highlight verse/chorus titles */
 }
+
 
 

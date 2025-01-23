@@ -42,28 +42,30 @@ function renderHymns(hymns) {
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
 
-  // Split the lyrics by newlines and wrap each line appropriately
+  // Process lyrics to split into individual lines and format them
   const formattedLyrics = hymn.lyrics
-    .split('\n') // Split the lyrics into an array of lines
+    .split('\n') // Split lyrics into an array of lines
     .map(line => {
       if (line.startsWith('Verse')) {
-        return `<p><strong>${line}</strong></p>`; // Bold and separate Verse titles
+        return `<p><strong>${line}</strong></p>`; // Bold Verse titles
       } else if (line.startsWith('Chorus')) {
-        return `<p><strong>${line}</strong></p>`; // Bold and separate Chorus titles
+        return `<p><strong>${line}</strong></p>`; // Bold Chorus titles
       } else if (line.trim() === '') {
         return '<br>'; // Add a blank line for spacing
       } else {
-        return `<p>${line}</p>`; // Regular lines wrapped in <p> tags
+        return `<p>${line}</p>`; // Wrap normal lines in <p> tags
       }
     })
-    .join(''); // Combine everything without adding extra breaks
+    .join(''); // Combine the array back into a single HTML string
 
-  // Inject the formatted lyrics into the lyrics display container
-  document.getElementById('hymnLyrics').innerHTML = formattedLyrics;
+  // Inject the formatted HTML into the DOM
+  const lyricsContainer = document.getElementById('hymnLyrics');
+  lyricsContainer.innerHTML = formattedLyrics;
 
-  // Make the lyrics display visible
+  // Make the lyrics container visible
   document.getElementById('lyricsDisplay').style.display = 'block';
 }
+
 
 // Filter hymns by search query
 async function searchHymns() {
