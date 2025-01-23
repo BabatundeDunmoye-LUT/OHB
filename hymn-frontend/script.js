@@ -35,7 +35,24 @@ function renderHymns(hymns) {
 // Display hymn lyrics
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
-  document.getElementById('hymnLyrics').textContent = hymn.lyrics;
+
+  // Split the lyrics by line breaks and wrap them in appropriate HTML
+  const formattedLyrics = hymn.lyrics
+    .split('\n') // Split by line breaks
+    .map(line => {
+      if (line.startsWith('Verse')) {
+        return `<strong>${line}</strong>`; // Bold the verse number
+      } else if (line.startsWith('Chorus')) {
+        return `<strong>${line}</strong>`; // Bold the chorus label
+      } else if (line.trim() === '') {
+        return '<br>'; // Add an extra break for empty lines
+      } else {
+        return line; // Return regular lines as is
+      }
+    })
+    .join('<br>'); // Join lines with HTML line breaks
+
+  document.getElementById('hymnLyrics').innerHTML = formattedLyrics;
   document.getElementById('lyricsDisplay').style.display = 'block';
 }
 
