@@ -3,9 +3,9 @@ let hymns = [];
 // Fetch hymns from the backend
 async function fetchHymns() {
   try {
-    const response = await fetch('https://ohb.onrender.com/hymns'); // Update the URL if needed
+    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}'); // Update the URL if needed
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error('HTTP error! status: ${response.status}');
     }
     hymns = await response.json();
     console.log('Fetched hymns:', hymns);
@@ -43,11 +43,11 @@ async function searchHymns() {
   console.log('Search query:', query);
 
   try {
-    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`); // Use backticks for template literals
-    console.log('Request URL:', `https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
+    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}'); // Use backticks for template literals
+    console.log('Request URL:', 'https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch hymns: ${response.statusText}`);
+      throw new Error('Failed to fetch hymns: ${response.statusText}');
     }
 
     const hymns = await response.json();
