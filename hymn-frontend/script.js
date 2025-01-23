@@ -43,8 +43,8 @@ async function searchHymns() {
   console.log('Search query:', query);
 
   try {
-    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
-    console.log('Request URL:', 'https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
+    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`); // Use backticks for template literals
+    console.log('Request URL:', `https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch hymns: ${response.statusText}`);
@@ -52,7 +52,7 @@ async function searchHymns() {
 
     const hymns = await response.json();
     console.log('Response data:', hymns);
-    renderHymns(hymns); // Ensure this function updates the UI correctly
+    renderHymns(hymns);
   } catch (error) {
     console.error('Error during search:', error);
     alert('Unable to fetch search results. Please try again later.');
