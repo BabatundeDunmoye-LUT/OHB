@@ -1,17 +1,19 @@
 let hymns = [];
 
 // Fetch hymns from the backend
-async function fetchHymns() {
+async function fetchHymns(query = '') {
+  console.log(`Fetching hymns for query: ${query}`);
   try {
-    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}'); // Update the URL if needed
+    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
     if (!response.ok) {
-      throw new Error('HTTP error! status: ${response.status}');
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    hymns = await response.json();
-    console.log('Fetched hymns:', hymns);
+    const hymns = await response.json();
+    console.log('Hymns fetched:', hymns);
     renderHymns(hymns);
   } catch (error) {
-    console.error('Error fetching hymns:', error.message);
+    console.error('Error during fetch:', error);
+    alert('Error fetching hymns. Please try again later.');
   }
 }
 
@@ -43,11 +45,11 @@ async function searchHymns() {
   console.log('Search query:', query);
 
   try {
-    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}'); // Use backticks for template literals
-    console.log('Request URL:', 'https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
+    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`); // Use backticks for template literals
+    console.log('Request URL:', `https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch hymns: ${response.statusText}');
+      throw new Error(`Failed to fetch hymns: ${response.statusText}`);
     }
 
     const hymns = await response.json();
@@ -69,8 +71,10 @@ document.getElementById('search').addEventListener('keyup', (event) => {
 
 
 document.getElementById('search-btn').addEventListener('click', () => {
-  console.log('Search button clicked!');
-  searchHymns();
+  const query = document.getElementById('search').value.trim();
+  console.log(`Search initiated for: ${query}`);
+  console.log('Search button clicked');
+  fetchHymns(query);
 });
 
 // Fetch hymns on page load
