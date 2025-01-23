@@ -2,20 +2,26 @@ let hymns = [];
 
 // Fetch hymns from the backend
 async function fetchHymns(query = '') {
-  console.log(`Fetching hymns for query: ${query}`);
   try {
     const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const hymns = await response.json();
-    console.log('Hymns fetched:', hymns);
+    console.log('Fetched hymns:', hymns);
+
+    // Add line breaks if missing (fallback logic)
+    hymns.forEach(hymn => {
+      hymn.lyrics = hymn.lyrics.replace(/(?:\. )/g, '.\n');
+    });
+
     renderHymns(hymns);
   } catch (error) {
-    console.error('Error during fetch:', error);
-    alert('Error fetching hymns. Please try again later.');
+    console.error('Error fetching hymns:', error);
+    alert('Failed to fetch hymns. Please try again later.');
   }
 }
+
 
 
 // Render hymn titles dynamically

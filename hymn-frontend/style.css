@@ -37,22 +37,6 @@ li {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-#lyricsDisplay {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  background: #f9f9f9;
-}
-
-p {
-  margin: 0.5em 0; /* Add spacing between lines */
-  line-height: 1.6; /* Improve readability */
-}
-
-strong {
-  font-weight: bold;
-  font-size: 1.1em; /* Make verse/chorus titles stand out */
-}
 
 #lyricsDisplay {
   margin-top: 20px;
@@ -60,5 +44,17 @@ strong {
   border: 1px solid #ddd;
   background: #f9f9f9;
   border-radius: 5px;
+  white-space: pre-wrap; /* Preserve line breaks and whitespace */
 }
+
+p {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+
+strong {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
 
