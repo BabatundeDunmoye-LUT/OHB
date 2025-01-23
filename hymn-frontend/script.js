@@ -42,11 +42,9 @@ function renderHymns(hymns) {
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
 
-  // Select the lyrics container and clear existing content
   const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = '';
+  lyricsContainer.innerHTML = ''; // Clear any existing lyrics
 
-  // Split the lyrics into lines and add each line to the container
   hymn.lyrics.split('\n').forEach(line => {
     if (line.startsWith('Verse')) {
       const verseElement = document.createElement('p');
@@ -61,13 +59,12 @@ function showLyrics(hymn) {
       lyricsContainer.appendChild(blankLine);
     } else {
       const lineElement = document.createElement('p');
-      lineElement.textContent = line;
+      lineElement.textContent = line; // Add plain text
       lyricsContainer.appendChild(lineElement);
     }
   });
 
-  // Ensure the lyrics display container is visible
-  document.getElementById('lyricsDisplay').style.display = 'block';
+  document.getElementById('lyricsDisplay').style.display = 'block'; // Ensure display
 }
 
 
