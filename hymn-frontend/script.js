@@ -42,33 +42,31 @@ function renderHymns(hymns) {
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
 
-  // Get the lyrics container
+  // Select the lyrics container and clear existing content
   const lyricsContainer = document.getElementById('hymnLyrics');
-
-  // Clear the existing content
   lyricsContainer.innerHTML = '';
 
-  // Process lyrics to split and render line by line
+  // Split the lyrics into lines and add each line to the container
   hymn.lyrics.split('\n').forEach(line => {
     if (line.startsWith('Verse')) {
-      const verseTitle = document.createElement('p');
-      verseTitle.innerHTML = `<strong>${line}</strong>`;
-      lyricsContainer.appendChild(verseTitle);
+      const verseElement = document.createElement('p');
+      verseElement.innerHTML = `<strong>${line}</strong>`;
+      lyricsContainer.appendChild(verseElement);
     } else if (line.startsWith('Chorus')) {
-      const chorusTitle = document.createElement('p');
-      chorusTitle.innerHTML = `<strong>${line}</strong>`;
-      lyricsContainer.appendChild(chorusTitle);
+      const chorusElement = document.createElement('p');
+      chorusElement.innerHTML = `<strong>${line}</strong>`;
+      lyricsContainer.appendChild(chorusElement);
     } else if (line.trim() === '') {
       const blankLine = document.createElement('br');
       lyricsContainer.appendChild(blankLine);
     } else {
-      const lyricLine = document.createElement('p');
-      lyricLine.textContent = line;
-      lyricsContainer.appendChild(lyricLine);
+      const lineElement = document.createElement('p');
+      lineElement.textContent = line;
+      lyricsContainer.appendChild(lineElement);
     }
   });
 
-  // Make the lyrics container visible
+  // Ensure the lyrics display container is visible
   document.getElementById('lyricsDisplay').style.display = 'block';
 }
 
