@@ -36,25 +36,28 @@ function renderHymns(hymns) {
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
 
-  // Split the lyrics by line breaks and wrap them in appropriate HTML
+  // Split the lyrics by line breaks and process them
   const formattedLyrics = hymn.lyrics
-    .split('\n') // Split by line breaks
+    .split('\n') // Split into lines
     .map(line => {
       if (line.startsWith('Verse')) {
-        return `<strong>${line}</strong>`; // Bold the verse number
+        return `<p><strong>${line}</strong></p>`; // Add bold formatting for verses
       } else if (line.startsWith('Chorus')) {
-        return `<strong>${line}</strong>`; // Bold the chorus label
+        return `<p><strong>${line}</strong></p>`; // Add bold formatting for chorus
       } else if (line.trim() === '') {
-        return '<br>'; // Add an extra break for empty lines
+        return '<br>'; // Add an empty line for spacing
       } else {
-        return line; // Return regular lines as is
+        return `<p>${line}</p>`; // Wrap normal lines in <p> tags
       }
     })
-    .join('<br>'); // Join lines with HTML line breaks
+    .join(''); // Join without adding additional <br> since <p> adds spacing
 
   document.getElementById('hymnLyrics').innerHTML = formattedLyrics;
   document.getElementById('lyricsDisplay').style.display = 'block';
 }
+
+
+
 
 // Filter hymns by search query
 async function searchHymns() {

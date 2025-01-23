@@ -43,3 +43,13 @@ li {
   border: 1px solid #ddd;
   background: #f9f9f9;
 }
+
+p {
+  margin: 5px 0; /* Adjust spacing between lines */
+  line-height: 1.5; /* Improve readability */
+}
+
+strong {
+  font-weight: bold;
+  font-size: 1.1em; /* Slightly larger text for emphasis */
+}
