@@ -49,7 +49,12 @@ app.get('/hymns', async (req, res) => {
 
 app.post('/hymns', async (req, res) => {
   try {
-    const hymn = new Hymn(req.body);
+    let { title, lyrics } = req.body;
+
+    // Automatically add line breaks for better formatting
+    lyrics = lyrics.replace(/(Verse \d+|Chorus)/g, '\n$1\n').replace(/(?:\. )/g, '.\n');
+
+    const hymn = new Hymn({ title, lyrics });
     await hymn.save();
     res.status(201).json(hymn);
   } catch (error) {
@@ -57,6 +62,7 @@ app.post('/hymns', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 // Start the Server
 const PORT = process.env.PORT || 5000;

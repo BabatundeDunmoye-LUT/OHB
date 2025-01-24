@@ -11,9 +11,12 @@ async function fetchHymns(query = '') {
     console.log('Fetched hymns:', hymns);
 
     // Add line breaks if missing (fallback logic)
-    hymns.forEach(hymn => {
-      hymn.lyrics = hymn.lyrics.replace(/(?:\. )/g, '.\n');
-    });
+
+  hymns.forEach(hymn => {
+    hymn.lyrics = hymn.lyrics
+      .replace(/(Verse \d+|Chorus)/g, '\n$1\n') // Ensure line breaks for titles
+      .replace(/(?:\. )/g, '.\n'); // Add line breaks after periods
+  });
 
     renderHymns(hymns);
   } catch (error) {
@@ -55,17 +58,21 @@ function showLyrics(hymn) {
       chorusElement.innerHTML = `<strong>${line}</strong>`;
       lyricsContainer.appendChild(chorusElement);
     } else if (line.trim() === '') {
+      // Add a blank line for better spacing
       const blankLine = document.createElement('br');
       lyricsContainer.appendChild(blankLine);
     } else {
+      // Regular line
       const lineElement = document.createElement('p');
       lineElement.textContent = line;
       lyricsContainer.appendChild(lineElement);
     }
   });
 
-  document.getElementById('lyricsDisplay').style.display = 'block'; // Show lyrics
+  // Display the lyrics container
+  document.getElementById('lyricsDisplay').style.display = 'block';
 }
+
 
 // Filter hymns by search query
 async function searchHymns() {
