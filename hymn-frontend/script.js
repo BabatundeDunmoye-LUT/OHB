@@ -1,27 +1,19 @@
 let hymns = [];
 
 // Fetch hymns from the backend
-async function fetchHymns(query = '') {
+async function fetchHymns() {
   try {
-    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
+    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}'); // Update the URL if needed
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error('HTTP error! status: ${response.status}');
     }
-    const hymns = await response.json();
+    hymns = await response.json();
     console.log('Fetched hymns:', hymns);
-
-    // Add line breaks if missing (fallback logic)
-    hymns.forEach(hymn => {
-      hymn.lyrics = hymn.lyrics.replace(/(?:\. )/g, '.\n');
-    });
-
     renderHymns(hymns);
   } catch (error) {
-    console.error('Error fetching hymns:', error);
-    alert('Failed to fetch hymns. Please try again later.');
+    console.error('Error fetching hymns:', error.message);
   }
 }
-
 
 
 // Render hymn titles dynamically
@@ -40,51 +32,10 @@ function renderHymns(hymns) {
 
 // Display hymn lyrics
 function showLyrics(hymn) {
-  console.log("Hymn data received:", hymn); // Log the hymn object
-
-  // Set the title
-  const titleElement = document.getElementById('hymnTitle');
-  titleElement.textContent = hymn.title;
-  console.log("Title set:", hymn.title);
-
-  // Get lyrics container and clear its content
-  const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = ''; // Clear any previous lyrics
-
-  // Split the lyrics into lines and process each line
-  hymn.lyrics.split('\n').forEach(line => {
-    console.log("Processing line:", line); // Log each line
-
-    if (line.startsWith('Verse')) {
-      const verseElement = document.createElement('p');
-      verseElement.innerHTML = `<strong>${line}</strong>`;
-      lyricsContainer.appendChild(verseElement);
-    } else if (line.startsWith('Chorus')) {
-      const chorusElement = document.createElement('p');
-      chorusElement.innerHTML = `<strong>${line}</strong>`;
-      lyricsContainer.appendChild(chorusElement);
-    } else if (line.trim() === '') {
-      const blankLine = document.createElement('br');
-      lyricsContainer.appendChild(blankLine);
-    } else {
-      const lineElement = document.createElement('p');
-      lineElement.textContent = line;
-      lyricsContainer.appendChild(lineElement);
-    }
-  });
-
-  console.log("Rendered HTML:", lyricsContainer.innerHTML); // Log the final HTML structure
-
-  // Ensure the lyrics container is visible
-  const displayElement = document.getElementById('lyricsDisplay');
-  displayElement.style.display = 'block';
-  console.log("Lyrics display made visible.");
+  document.getElementById('hymnTitle').textContent = hymn.title;
+  document.getElementById('hymnLyrics').textContent = hymn.lyrics;
+  document.getElementById('lyricsDisplay').style.display = 'block';
 }
-
-
-
-
-
 
 // Filter hymns by search query
 async function searchHymns() {
@@ -92,11 +43,11 @@ async function searchHymns() {
   console.log('Search query:', query);
 
   try {
-    const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`); // Use backticks for template literals
-    console.log('Request URL:', `https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
+    const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}'); // Use backticks for template literals
+    console.log('Request URL:', 'https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch hymns: ${response.statusText}`);
+      throw new Error('Failed to fetch hymns: ${response.statusText}');
     }
 
     const hymns = await response.json();
@@ -118,10 +69,8 @@ document.getElementById('search').addEventListener('keyup', (event) => {
 
 
 document.getElementById('search-btn').addEventListener('click', () => {
-  const query = document.getElementById('search').value.trim();
-  console.log(`Search initiated for: ${query}`);
-  console.log('Search button clicked');
-  fetchHymns(query);
+  console.log('Search button clicked!');
+  searchHymns();
 });
 
 // Fetch hymns on page load

@@ -43,17 +43,16 @@
   <input type="text" id="search" placeholder="Search for a hymn..." />
   <button id="search-btn">Search</button>
   <ul id="hymnList"></ul>
-<div id="lyricsDisplay" style="display: none;">
-  <h2 id="hymnTitle"></h2>
-  <div id="hymnLyrics"></div>
-</div>
-
+  <div id="lyricsDisplay">
+    <h2 id="hymnTitle"></h2>
+    <p id="hymnLyrics"></p>
+  </div>
 
   <script>
     // Fetch hymns dynamically from the backend
     async function fetchHymns(query = '') {
       try {
-        const response = await fetch(`https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}`);
+        const response = await fetch('https://ohb.onrender.com/hymns?title=${encodeURIComponent(query)}');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -80,6 +79,7 @@
     // Show hymn lyrics
     function showLyrics(hymn) {
       document.getElementById('hymnTitle').textContent = hymn.title;
+      document.getElementById('hymnLyrics').textContent = hymn.lyrics;
       document.getElementById('lyricsDisplay').style.display = 'block';
     }
 
