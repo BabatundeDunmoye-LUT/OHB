@@ -40,7 +40,6 @@ li {
 
 #lyricsDisplay {
   white-space: pre-wrap;
-  display: none; /* Ensure it's hidden initially */
   margin-top: 20px;
   padding: 15px;
   border: 1px solid #ddd;
