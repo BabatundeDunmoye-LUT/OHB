@@ -40,15 +40,21 @@ function renderHymns(hymns) {
 
 // Display hymn lyrics
 function showLyrics(hymn) {
-  // Set hymn title
-  document.getElementById('hymnTitle').textContent = hymn.title;
+  console.log("Hymn data received:", hymn); // Log the hymn object
 
-  // Get lyrics container and clear it
+  // Set the title
+  const titleElement = document.getElementById('hymnTitle');
+  titleElement.textContent = hymn.title;
+  console.log("Title set:", hymn.title);
+
+  // Get lyrics container and clear its content
   const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = ''; // Clear any previous content
+  lyricsContainer.innerHTML = ''; // Clear any previous lyrics
 
-  // Split the lyrics into lines and render each line
+  // Split the lyrics into lines and process each line
   hymn.lyrics.split('\n').forEach(line => {
+    console.log("Processing line:", line); // Log each line
+
     if (line.startsWith('Verse')) {
       const verseElement = document.createElement('p');
       verseElement.innerHTML = `<strong>${line}</strong>`;
@@ -62,14 +68,19 @@ function showLyrics(hymn) {
       lyricsContainer.appendChild(blankLine);
     } else {
       const lineElement = document.createElement('p');
-      lineElement.textContent = line; // Add plain text for normal lines
+      lineElement.textContent = line;
       lyricsContainer.appendChild(lineElement);
     }
   });
 
-  // Make the lyrics section visible
-  document.getElementById('lyricsDisplay').style.display = 'block';
+  console.log("Rendered HTML:", lyricsContainer.innerHTML); // Log the final HTML structure
+
+  // Ensure the lyrics container is visible
+  const displayElement = document.getElementById('lyricsDisplay');
+  displayElement.style.display = 'block';
+  console.log("Lyrics display made visible.");
 }
+
 
 
 
