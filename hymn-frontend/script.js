@@ -42,38 +42,25 @@ function renderHymns(hymns) {
 
 // Display hymn lyrics
 function showLyrics(hymn) {
-  // Debugging: Log the raw hymn lyrics
-  console.log('Hymn Title:', hymn.title);
-  console.log('Raw Hymn Lyrics:', hymn.lyrics);
+  document.getElementById('hymnTitle').textContent = hymn.title;
 
-  // Check if line breaks exist
-  if (hymn.lyrics.includes('\n')) {
-    console.log('Line breaks detected.');
-  } else {
-    console.log('No line breaks detected. Formatting may be required.');
-  }
-
-  // Render lyrics
   const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = '';
+  lyricsContainer.innerHTML = ''; // Clear any previous lyrics
 
+  // Split lyrics by line breaks and render each line
   hymn.lyrics.split('\n').forEach(line => {
-    const lineElement = document.createElement('p');
+    const lineElement = document.createElement('p'); // Create a <p> element for each line
     if (line.startsWith('Verse') || line.startsWith('Chorus')) {
-      lineElement.innerHTML = `<strong>${line}</strong>`;
+      lineElement.innerHTML = `<strong>${line}</strong>`; // Bold for Verse and Chorus
     } else {
       lineElement.textContent = line;
     }
-    lyricsContainer.appendChild(lineElement);
+    lyricsContainer.appendChild(lineElement); // Add line to the container
   });
 
-  document.getElementById('lyricsDisplay').style.display = 'block';
+  document.getElementById('lyricsDisplay').style.display = 'block'; // Show the lyrics container
 }
 
-
-  // Display the lyrics section
-  document.getElementById('lyricsDisplay').style.display = 'block';
-}
 
 
 // Display hymn lyrics
