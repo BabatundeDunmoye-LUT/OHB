@@ -42,24 +42,42 @@ function renderHymns(hymns) {
 
 // Display hymn lyrics
 function showLyrics(hymn) {
+  // Log the raw lyrics to check its content
+  console.log('Raw Hymn Lyrics:', hymn.lyrics);
+
+  // Check if line breaks (\n) exist
+  if (hymn.lyrics.includes('\n')) {
+    console.log('Line breaks detected in lyrics.');
+  } else {
+    console.log('No line breaks detected in lyrics. Formatting may be required.');
+  }
+
+  // Update the title
   document.getElementById('hymnTitle').textContent = hymn.title;
 
+  // Clear previous content
   const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = ''; // Clear previous content
+  lyricsContainer.innerHTML = '';
 
-  // Split lyrics by line breaks and render each line
+  // Split the lyrics by line breaks and render each line
   hymn.lyrics.split('\n').forEach(line => {
     const lineElement = document.createElement('p');
+
+    // Add strong tags for Verse and Chorus
     if (line.startsWith('Verse') || line.startsWith('Chorus')) {
       lineElement.innerHTML = `<strong>${line}</strong>`;
     } else {
       lineElement.textContent = line;
     }
+
+    // Append the line element to the container
     lyricsContainer.appendChild(lineElement);
   });
 
-  document.getElementById('lyricsDisplay').style.display = 'block'; // Show lyrics
+  // Display the lyrics section
+  document.getElementById('lyricsDisplay').style.display = 'block';
 }
+
 
 // Display hymn lyrics
 //function showLyrics(hymn) {
