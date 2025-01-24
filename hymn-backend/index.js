@@ -33,6 +33,26 @@ const hymnSchema = new mongoose.Schema({
 });
 const Hymn = mongoose.model('Hymn', hymnSchema);
 
+// Update database entries
+app.put('/hymns/reformat', async (req, res) => {
+  try {
+    const hymns = await Hymn.find();
+
+    for (const hymn of hymns) {
+      hymn.lyrics = hymn.lyrics
+        .replace(/(Verse \d+|Chorus)/g, '\n$1\n') // Add line breaks before/after titles
+        .replace(/(?:\. )/g, '.\n'); // Add line breaks after sentences
+      await hymn.save();
+    }
+
+    res.json({ message: 'Hymns reformatted successfully!' });
+  } catch (error) {
+    console.error('Error reformatting hymns:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // API Endpoints
 app.get('/hymns', async (req, res) => {
   try {
@@ -51,8 +71,12 @@ app.post('/hymns', async (req, res) => {
   try {
     let { title, lyrics } = req.body;
 
-    // Automatically add line breaks for better formatting
-    lyrics = lyrics.replace(/(Verse \d+|Chorus)/g, '\n$1\n').replace(/(?:\. )/g, '.\n');
+    // Format the lyrics
+    lyrics = lyrics
+      .replace(/(Verse \d+|Chorus)/g, '\n$1\n') // Add line breaks before/after titles
+      .replace(/(?:\. )/g, '.\n'); // Add line breaks after sentences
+
+    console.log('Formatted Lyrics:', lyrics); // Debug: Log formatted lyrics
 
     const hymn = new Hymn({ title, lyrics });
     await hymn.save();
@@ -62,6 +86,23 @@ app.post('/hymns', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+//app.post('/hymns', async (req, res) => {
+//  try {
+//    let { title, lyrics } = req.body;
+//
+//    // Automatically add line breaks for better formatting
+//    lyrics = lyrics.replace(/(Verse \d+|Chorus)/g, '\n$1\n').replace(/(?:\. )/g, '.\n');
+//
+//    const hymn = new Hymn({ title, lyrics });
+//    await hymn.save();
+//    res.status(201).json(hymn);
+//  } catch (error) {
+//    console.error('Error saving hymn:', error);
+//    res.status(500).json({ error: 'Internal server error' });
+//  }
+//});
 
 
 // Start the Server

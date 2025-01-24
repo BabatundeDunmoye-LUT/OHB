@@ -40,7 +40,6 @@ function renderHymns(hymns) {
   });
 }
 
-
 // Display hymn lyrics
 function showLyrics(hymn) {
   document.getElementById('hymnTitle').textContent = hymn.title;
@@ -48,26 +47,47 @@ function showLyrics(hymn) {
   const lyricsContainer = document.getElementById('hymnLyrics');
   lyricsContainer.innerHTML = ''; // Clear previous content
 
+  // Split lyrics by line breaks and render each line
   hymn.lyrics.split('\n').forEach(line => {
-    if (line.startsWith('Verse')) {
-      const verseElement = document.createElement('p');
-      verseElement.innerHTML = `<strong>${line}</strong>`;
-      lyricsContainer.appendChild(verseElement);
-    } else if (line.startsWith('Chorus')) {
-      const chorusElement = document.createElement('p');
-      chorusElement.innerHTML = `<strong>${line}</strong>`;
-      lyricsContainer.appendChild(chorusElement);
-    } else if (line.trim() === '') {
-      // Add a blank line for better spacing
-      const blankLine = document.createElement('br');
-      lyricsContainer.appendChild(blankLine);
+    const lineElement = document.createElement('p');
+    if (line.startsWith('Verse') || line.startsWith('Chorus')) {
+      lineElement.innerHTML = `<strong>${line}</strong>`;
     } else {
-      // Regular line
-      const lineElement = document.createElement('p');
       lineElement.textContent = line;
-      lyricsContainer.appendChild(lineElement);
     }
+    lyricsContainer.appendChild(lineElement);
   });
+
+  document.getElementById('lyricsDisplay').style.display = 'block'; // Show lyrics
+}
+
+// Display hymn lyrics
+//function showLyrics(hymn) {
+//  document.getElementById('hymnTitle').textContent = hymn.title;
+//
+//  const lyricsContainer = document.getElementById('hymnLyrics');
+//  lyricsContainer.innerHTML = ''; // Clear previous content
+//
+//  hymn.lyrics.split('\n').forEach(line => {
+//    if (line.startsWith('Verse')) {
+//      const verseElement = document.createElement('p');
+//      verseElement.innerHTML = `<strong>${line}</strong>`;
+//      lyricsContainer.appendChild(verseElement);
+//    } else if (line.startsWith('Chorus')) {
+//      const chorusElement = document.createElement('p');
+//      chorusElement.innerHTML = `<strong>${line}</strong>`;
+//      lyricsContainer.appendChild(chorusElement);
+//    } else if (line.trim() === '') {
+//      // Add a blank line for better spacing
+//      const blankLine = document.createElement('br');
+//      lyricsContainer.appendChild(blankLine);
+//    } else {
+//      // Regular line
+//      const lineElement = document.createElement('p');
+//      lineElement.textContent = line;
+//      lyricsContainer.appendChild(lineElement);
+//    }
+//  });
 
   // Display the lyrics container
   document.getElementById('lyricsDisplay').style.display = 'block';
