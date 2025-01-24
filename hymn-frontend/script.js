@@ -40,16 +40,15 @@ function renderHymns(hymns) {
 
 // Display hymn lyrics
 function showLyrics(hymn) {
-  console.log("Hymn received:", hymn); // Log the hymn object
-
+  // Set the title of the hymn
   document.getElementById('hymnTitle').textContent = hymn.title;
 
+  // Get the lyrics container
   const lyricsContainer = document.getElementById('hymnLyrics');
-  lyricsContainer.innerHTML = ''; // Clear previous content
+  lyricsContainer.innerHTML = ''; // Clear existing content
 
+  // Split the lyrics into lines and render each line
   hymn.lyrics.split('\n').forEach(line => {
-    console.log("Processing line:", line); // Log each line of lyrics
-
     if (line.startsWith('Verse')) {
       const verseElement = document.createElement('p');
       verseElement.innerHTML = `<strong>${line}</strong>`;
@@ -68,9 +67,10 @@ function showLyrics(hymn) {
     }
   });
 
-  console.log("Rendered lyrics DOM:", lyricsContainer.innerHTML); // Log the final DOM
-  document.getElementById('lyricsDisplay').style.display = 'block'; // Show lyrics
+  // Make the lyrics container visible
+  document.getElementById('lyricsDisplay').style.display = 'block';
 }
+
 
 
 // Filter hymns by search query
