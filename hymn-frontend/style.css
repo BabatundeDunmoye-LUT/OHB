@@ -37,9 +37,23 @@ li {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
+
 #lyricsDisplay {
   margin-top: 20px;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ddd;
-  background: #f9f9f9;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  white-space: pre-wrap; /* Preserve line breaks and wrap text */
+  margin: 10px 0;
+}
+
+p {
+  margin: 8px 0; /* Space between lines */
+  line-height: 1.6; /* Increase line height for better readability */
+}
+
+strong {
+  font-weight: bold;
+  font-size: 1.1em; /* Slightly larger font for verse and chorus titles */
 }
